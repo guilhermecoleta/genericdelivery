@@ -1,0 +1,60 @@
+<ui:composition template="/WEB-INF/templates/system_template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:form id="form">
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
+			<p:fieldset styleClass="size_12 fieldset"
+				legend="Cadastro de Produtos">
+
+				<div class="clear" />
+
+				<div class="grid_10">
+					<p:outputLabel for="codigo" value="Código: *" />
+					<p:inputText styleClass="size_10 inputText" id="codigo"
+						value="#{produtoBean.produto.codigo}" readonly="true" />
+				</div>
+
+				<div class="clear" />
+
+				<div class="grid_12">
+					<p:outputLabel for="descricao" value="Descrição: *" />
+					<p:inputText styleClass="size_12 inputText" id="descricao"
+						value="#{produtoBean.produto.descricao}" maxlength="50" />
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="grid_3">
+					<p:outputLabel value="Categoria" for="categoria" />
+					<p:selectOneMenu styleClass="size_3 selectOneMenu"
+						value="#{produtoBean.produto.categoria.id}" id="categoria">
+						<f:selectItems value="#{produtoBean.categorias}" var="categoria"
+							itemLabel="#{categoria.descricao}" itemValue="#{categoria.id}" />
+					</p:selectOneMenu>
+				</div>
+
+
+
+
+			</p:fieldset>
+
+
+				<div class="grid_8" />
+				<div class="grid_4" style="position: right">
+					<p:commandButton action="#{produtoBean.salvar}" value="Salvar"
+						update="form" ajax="false" />
+					<p:commandButton action="#{produtoBean.voltar}" value="Voltar"
+						update="form" ajax="false" />
+				</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

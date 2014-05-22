@@ -1,0 +1,29 @@
+<ui:composition template="/WEB-INF/templates/website_template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		
+		<div class="grid_12">
+			<div class="prefix_3 grid_2 omega border-right">
+				<div class="error" />
+			</div>
+			
+			<div class="grid_5">
+				<div class="grid_4 title">
+					<h1 class="text-red-dark">Ooops!</h1>
+					<h3 class="text-red-dark">Ocorreu um erro inesperado.</h3>
+					
+					<div class="alpha prefix_3 grid_1">
+						<h:link styleClass="back" id="back" outcome="/pages/main.jsf" />
+						<p:tooltip for="back" styleClass="tooltip" value="Voltar à página principal" showEffect="fade" hideEffect="fade" />
+					</div>
+				</div>
+			</div>
+		</div>
+			
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,168 @@
+<ui:composition template="/WEB-INF/templates/system_template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:form id="form">
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
+			<p:fieldset styleClass="size_12 fieldset"
+				legend="Cadastro de Usuários">
+
+				<div class="clear" />
+
+				<div class="grid_10">
+					<p:outputLabel for="nome" value="Nome: *" />
+					<p:inputText styleClass="size_10 inputText" id="nome"
+						value="#{usuarioBean.usuario.nome}" maxlength="100" />
+				</div>
+
+				<div class="clear" />
+
+				<div class="grid_2">
+					<p:outputLabel for="login" value="Login: *" />
+					<p:inputText styleClass="size_2 inputText" id="login"
+						value="#{usuarioBean.usuario.login}" maxlength="15" />
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="grid_2">
+					<p:outputLabel for="senha" value="Senha *" />
+					<p:password styleClass="size_2 inputText" id="senha"
+						value="#{usuarioBean.usuario.senha}" maxlength="20" />
+				</div>
+
+				<div class="grid_2">
+					<p:outputLabel for="confirmacaoSenha" value="Confirme sua senha *" />
+					<p:password styleClass="size_2 inputText" id="confirmacaoSenha"
+						value="#{usuarioBean.confirmacaoSenha}" maxlength="20" />
+				</div>
+
+				<div class="grid_3">
+					<p:outputLabel value="Perfil" for="perfil" />
+					<p:selectOneMenu styleClass="size_3 selectOneMenu"
+						value="#{usuarioBean.usuario.perfil.id}" id="perfil">
+						<f:selectItems value="#{usuarioBean.perfis}" var="perfil"
+							itemLabel="#{perfil.nome}" itemValue="#{perfil.id}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="clear"></div>
+
+
+				<div class="grid_12">
+					<p:outputLabel for="facebook" value="Perfil do Facebook: " />
+					<p:inputText styleClass="size_12 inputText" id="facebook"
+						value="#{usuarioBean.usuario.facebook}" maxlength="255" />
+				</div>
+
+				<div class="grid_2">
+					<p:outputLabel for="telefone" value="Telefone: " />
+					<p:inputText styleClass="size_2 inputText phone" id="telefone"
+						value="#{usuarioBean.usuario.telefone}" maxlength="14" />
+				</div>
+
+
+
+			</p:fieldset>
+
+
+			<p:outputPanel id="endereco">
+				<p:fieldset styleClass="size_12 fieldset" legend="Endereço">
+
+					<div class="clear" />
+
+					<div class="grid_6">
+						<p:outputLabel for="cep" value="CEP: *" />
+						<p:inputText styleClass="size_3 inputText cep" id="cep"
+							value="#{usuarioBean.usuario.endereco.cep}" maxlength="9" />
+						<p:commandButton action="#{usuarioBean.preencheEndereco}"
+							value="Buscar Endereço" update="form" ajax="false" />
+					</div>
+
+
+					<div class="clear" />
+
+					<p:outputPanel rendered="#{usuarioBean.renderEndereco}">
+						<div class="grid_3">
+							<p:outputLabel value="Tipo do Logradouro" for="tipoLogradouro" />
+							<p:selectOneMenu styleClass="size_3 selectOneMenu"
+								value="#{usuarioBean.usuario.endereco.tipoLogradouro}"
+								id="tipoLogradouro" disabled="#{usuarioBean.disableEndereco}">
+								<f:selectItems value="#{usuarioBean.usuario.values}" var="tipo"
+									itemLabel="#{tipo}" itemValue="#{tipo}" />
+							</p:selectOneMenu>
+						</div>
+
+						<div class="grid_5">
+							<p:outputLabel for="logradouro" value="Logradouro: *" />
+							<p:inputText styleClass="size_5 inputText" id="logradouro"
+								value="#{usuarioBean.usuario.endereco.logradouro}"
+								maxlength="50" disabled="#{usuarioBean.disableEndereco}" />
+						</div>
+
+						<div class="grid_2">
+							<p:outputLabel for="numero" value="Número: " />
+							<p:inputText styleClass="size_2 inputText number" id="numero"
+								value="#{usuarioBean.usuario.endereco.numeroString}"
+								maxlength="4" onkeypress="return(isNumeric(this, event));"
+								onchange="removeNonNumeric(this);" />
+						</div>
+
+						<div class="grid_5">
+							<p:outputLabel for="bairro" value="Bairro: *" />
+							<p:inputText styleClass="size_5 inputText" id="bairro"
+								value="#{usuarioBean.usuario.endereco.bairro}" maxlength="30"
+								disabled="#{usuarioBean.disableEndereco}" />
+						</div>
+
+						<div class="grid_5">
+							<p:outputLabel for="complemento" value="Complemento: " />
+							<p:inputText styleClass="size_5 inputText" id="complemento"
+								value="#{usuarioBean.usuario.endereco.complemento}"
+								maxlength="50" />
+						</div>
+
+						<div class="grid_5">
+							<p:outputLabel for="pontoReferencia" value="Ponto de referência:" />
+							<p:inputText styleClass="size_5 inputText" id="pontoReferencia"
+								value="#{usuarioBean.usuario.endereco.pontoReferencia}"
+								maxlength="50" />
+						</div>
+
+						<div class="grid_5">
+							<p:outputLabel for="cidade" value="Cidade: *" />
+							<p:inputText styleClass="size_5 inputText" id="cidade"
+								value="#{usuarioBean.usuario.endereco.cidade}" maxlength="30"
+								disabled="true" />
+						</div>
+
+						<div class="grid_2">
+							<p:outputLabel for="uf" value="Estado: *" />
+							<p:inputText styleClass="size_2 inputText" id="uf"
+								value="#{usuarioBean.usuario.endereco.uf}" maxlength="30"
+								disabled="true" />
+						</div>
+					</p:outputPanel>
+
+
+
+				</p:fieldset>
+				<div class="grid_8" />
+				<div class="grid_4" style="position: right">
+					<p:commandButton action="#{usuarioBean.salvar}" value="Salvar"
+						update="form" ajax="false" />
+					<p:commandButton action="#{usuarioBean.voltar}" value="Voltar"
+						update="form" ajax="false" />
+				</div>
+
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

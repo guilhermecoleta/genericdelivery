@@ -1,0 +1,29 @@
+<ui:composition template="/WEB-INF/templates/website_template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		
+		<div class="grid_12">
+			<div class="prefix_3 grid_2 omega border-right">
+				<div class="not-found" />
+			</div>
+			
+			<div class="grid_5">
+				<div class="grid_4 title">
+					<h1 class="text-green-light">Error 404</h1>
+					<h3 class="text-green-light">Página não encontrada.</h3>
+					
+					<div class="alpha prefix_3 grid_1">
+						<h:link styleClass="back" id="back" outcome="login.jsf" />
+						<p:tooltip for="back" styleClass="tooltip" value="Ir para login" showEffect="fade" hideEffect="fade" />
+					</div>
+				</div>
+			</div>
+		</div>
+			
+	</ui:define>
+</ui:composition>

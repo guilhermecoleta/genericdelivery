@@ -1,0 +1,105 @@
+<ui:composition template="/WEB-INF/templates/system_template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:form id="form" prependId="false">
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
+			<p:fieldset styleClass="size_12 fieldset"
+				legend="Cadastro de Cardápio">
+
+				<div class="clear" />
+
+				<div class="grid_10">
+					<p:outputLabel for="codigo" value="Código: *" />
+					<p:inputText styleClass="size_10 inputText" id="codigo"
+						value="#{cardapioBean.cardapio.id}" readonly="true" />
+				</div>
+
+				<div class="clear" />
+
+				<div class="grid_12">
+					<p:outputLabel for="descricao" value="Descrição: " />
+					<p:inputTextarea styleClass="size_12 inputText" id="descricao" maxlength="50"
+						value="#{cardapioBean.cardapio.descricao}" />
+				</div>
+
+				<div class="grid_12">
+					<p:outputLabel for="dataHora" value="Data/Hora: " />
+					<p:inputText styleClass="size_12 inputText" id="dataHora"
+						value="#{cardapioBean.cardapio.dataHora}" readonly="true">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm"></f:convertDateTime>
+					</p:inputText>
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="grid_3">
+					<p:outputLabel value="Produto" for="produtos" />
+					<p:selectOneMenu styleClass="size_3 selectOneMenu"
+						value="#{cardapioBean.produto.codigo}" id="produtos">
+						<f:selectItems value="#{cardapioBean.produtos}" var="produto"
+							itemLabel="#{produto.descricao}" itemValue="#{produto.codigo}" />
+					</p:selectOneMenu>
+
+				</div>
+
+				<div class="grid_5">
+					<p:outputLabel for="valor" value="Valor: " />
+					<p:inputText styleClass="size_5 inputText moneyMask" id="valor"
+						value="#{cardapioBean.valor}" maxlength="10">
+					</p:inputText>
+				</div>
+
+				<p:commandButton value="+" action="#{cardapioBean.addProduto}" update="tabelaProdutos"></p:commandButton>
+
+			</p:fieldset>
+
+		
+			<p:fieldset id="fieldsetProdutos" styleClass="size_12 fieldset"
+				legend="Produtos">
+				<p:dataTable value="#{cardapioBean.cardapio.produtos}" id="tabelaProdutos"
+					var="produto" paginator="true" rows="10"
+					paginatorAlwaysVisible="false" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">  
+					<p:column>
+						<f:facet name="header">  
+	                		Produto  
+	           			</f:facet>
+						<h:outputText value="#{produto.produto.descricao}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">  
+	                		Valor  
+	           			</f:facet>
+						<h:outputText value="#{produto.valor}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">  
+	                		Ações  
+	           			</f:facet>
+						<p:commandButton value="Excluir" action="#{cardapioBean.excluir(produto)}" update="tabelaProdutos"/>
+					</p:column>
+
+				</p:dataTable>
+
+			</p:fieldset>
+			<div class="grid_8" />
+			<div class="grid_4" style="position: right">
+				<p:commandButton action="#{cardapioBean.salvar}" value="Salvar"
+					update="form" ajax="false" />
+				<p:commandButton action="#{cardapioBean.voltar}" value="Voltar"
+					update="form" ajax="false" />
+			</div>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

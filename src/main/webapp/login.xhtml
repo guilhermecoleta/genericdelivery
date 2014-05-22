@@ -1,0 +1,53 @@
+<ui:composition template="/WEB-INF/templates/website_template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		<h:form id="form">
+		
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			
+			<div class="prefix_1 grid_8">
+				<h:link id="genericDeliveryLogo" styleClass="generic-delivery-site" outcome="login.jsf" />
+				<p:tooltip for="genericDeliveryLogo" styleClass="tooltip" value="Generic Delivery System" showEffect="fade" hideEffect="fade" />
+			</div>
+			
+			<div class="clear" />
+			
+			<div class="prefix_1 grid_3 omega title">
+				<h1 class="login-title">Entrar</h1>
+			</div>
+		
+			<div class="prefix_1 grid_6">
+				<p:fieldset styleClass="alpha size_6 fieldset" legend="Login">
+				
+					<!-- Login -->
+					<div class="grid_4">
+						<p:outputLabel for="login" value="Login *" />
+						<p:inputText styleClass="size_4 inputText" id="login" value="#{loginBean.login}" maxlength="15" />
+						
+						<div class="clear" />
+						
+						<p:outputLabel for="senha" value="Senha *" />
+						<p:password styleClass="size_4 inputText" id="senha" value="#{loginBean.senha}" maxlength="15" />
+						
+						<div class="alpha grid_2">
+							<em class="gray-text">Campos obrigatórios *</em>
+						</div>
+					</div>
+					
+					<div class="grid_1">
+						<p:commandLink id="enter" styleClass="login" action="#{loginBean.login}" ajax="false" />
+						<p:tooltip for="enter" styleClass="tooltip" value="Entrar" showEffect="fade" hideEffect="fade" />
+					</div>
+					
+				</p:fieldset>
+			</div>
+		
+		</h:form>
+	</ui:define>
+</ui:composition>
+
