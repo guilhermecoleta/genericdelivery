@@ -116,25 +116,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private void validarCampos(Usuario usuario) throws CPFJaCadastrado, EmailJaCadastrado, FacebookJaCadastrado, CamposObrigatoriosNaoPrenchidos {
 		boolean validate = RequiredFieldsValidator.validate(usuario);
 		validate &= RequiredFieldsValidator.validate(usuario.getEndereco());
-		if (validate) {
-			validarCamposUnicos(usuario);
-		} else {
+		if (!validate) {
 			throw new CamposObrigatoriosNaoPrenchidos();
 		}
 	}
 
-	private void validarCamposUnicos(Usuario usuario) throws CPFJaCadastrado, EmailJaCadastrado, FacebookJaCadastrado {
-		boolean existeCPF = dao.verificarCPFExistente(usuario.getCpf(), usuario.getId());
-		boolean existeEmail = dao.verificarEmailExistente(usuario.getEmail(), usuario.getId());
-		boolean existeFacebook = dao.verificarFacebookExistente(usuario.getFacebook(), usuario.getId());
-		if (existeCPF) {
-			throw new CPFJaCadastrado();
-		} else if (existeEmail) {
-			throw new EmailJaCadastrado();
-		} else if (existeFacebook) {
-			throw new FacebookJaCadastrado();
-		}
-	}
 
 	@Override
 	public List<Usuario> list(UsuarioFiltroVO filtroVO) {

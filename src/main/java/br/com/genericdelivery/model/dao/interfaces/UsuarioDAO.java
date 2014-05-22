@@ -17,12 +17,6 @@ public interface UsuarioDAO {
 
 	void update(Usuario usuario);
 
-	boolean verificarCPFExistente(String value, Integer id);
-
-	boolean verificarEmailExistente(String email, Integer id);
-
-	boolean verificarFacebookExistente(String facebook, Integer id);
-
 	List<Usuario> listar(UsuarioFiltroVO filtroVO);
 
 	void remove(Integer usuario);

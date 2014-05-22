@@ -14,7 +14,6 @@ import br.com.genericdelivery.model.dao.interfaces.UsuarioDAO;
 import br.com.genericdelivery.model.entity.Funcionalidade;
 import br.com.genericdelivery.model.entity.Permissao;
 import br.com.genericdelivery.model.entity.Usuario;
-import br.com.genericdelivery.util.StringUtil;
 import br.com.genericdelivery.vo.UsuarioFiltroVO;
 
 @Repository
@@ -48,50 +47,6 @@ public class UsuarioDAOImpl extends JPAGenericDAO<Usuario> implements UsuarioDAO
 		}
 	}
 
-	@Override
-	public boolean verificarCPFExistente(String cpf, Integer id) {
-		return executarConsulta(cpf, null, null, id) != null;
-	}
-
-	@Override
-	public boolean verificarEmailExistente(String email, Integer id) {
-		return executarConsulta(null, email, null, id) != null;
-	}
-
-	@Override
-	public boolean verificarFacebookExistente(String facebook, Integer id) {
-		return executarConsulta(null, null, facebook, id) != null;
-	}
-
-	private Usuario executarConsulta(String cpf, String email, String facebook, Integer id) {
-		List<Object> params = new ArrayList<Object>();
-		StringBuilder sb = new StringBuilder("SELECT usuario FROM Usuario usuario");
-		sb.append(" WHERE");
-		if (!StringUtil.isNullOrEmpty(cpf)) {
-			sb.append(" usuario.cpf = ?");
-			params.add(cpf);
-		} else if (!StringUtil.isNullOrEmpty(email)) {
-			sb.append(" usuario.email = ?");
-			params.add(email);
-		} else if (!StringUtil.isNullOrEmpty(facebook)) {
-			sb.append(" usuario.facebook = ?");
-			params.add(facebook);
-		}
-		if (id != null) {
-			sb.append(" AND usuario.id != ?");
-			params.add(id);
-		}
-		Usuario usuario = null;
-		try {
-			usuario = (Usuario) findSingleResultByJPQL(sb.toString(), params.toArray());
-		} catch (NonUniqueResultException e) {
-			return null;
-		} catch (NoResultException e) {
-			return null;
-		}
-		return usuario;
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> listar(UsuarioFiltroVO filtroVO) {
@@ -103,10 +58,6 @@ public class UsuarioDAOImpl extends JPAGenericDAO<Usuario> implements UsuarioDAO
 		if (StringUtils.isNotBlank(filtroVO.getNome())) {
 			sb.append(" AND u.nome LIKE ?");
 			params.add(filtroVO.getNome() + "%");
-		}
-		if (StringUtils.isNotBlank(filtroVO.getEmail())) {
-			sb.append(" AND u.email LIKE ?");
-			params.add(filtroVO.getEmail() + "%");
 		}
 		if (StringUtils.isNotBlank(filtroVO.getLogin())) {
 			sb.append(" AND u.login LIKE ?");

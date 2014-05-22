@@ -2,12 +2,16 @@ package br.com.genericdelivery.controller;
 
 import java.util.List;
 
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import br.com.genericdelivery.model.entity.Cardapio;
+import br.com.genericdelivery.model.entity.Categoria;
 import br.com.genericdelivery.model.entity.Pedido;
 import br.com.genericdelivery.model.entity.Produto;
+import br.com.genericdelivery.model.entity.ProdutoCardapio;
 import br.com.genericdelivery.model.entity.ProdutoPedido;
 import br.com.genericdelivery.model.entity.Tela;
 import br.com.genericdelivery.service.exceptions.CamposObrigatoriosNaoPrenchidos;
@@ -28,16 +32,19 @@ public class PedidoBean {
 
 	@Autowired
 	private PedidoService pedidoService;
-	
+
 	@Autowired
 	private ProdutoService produtoService;
-	
+
 	@Autowired
 	private CardapioService cardapioService;
-	
+
 	private Cardapio cardapio;
-	
+
 	private List<Produto> produtos;
+
+	private TreeNode produtosNode;
+
 
 	public void salvar(){
 		try{
@@ -53,25 +60,14 @@ public class PedidoBean {
 		}
 
 	}
-	
-	
-	public void addProduto() {
-		if (valor != null) {
-			ProdutoPedido produtoPedido = new ProdutoPedido();
-			produto = produtoService.findById(produto.getCodigo());
-			produtoPedido.setProduto(produto);
-			produtoPedido.setPedido(pedido);;
-			produtoPedido.setValor(valor);
-			pedido.getProdutos().add(produtoPedido);
-		}
-	}
+
 
 	private void limparCampos() {
 		pedido = new Pedido();
 		pedido.setAtivo(true);
 		cardapio = cardapioService.getCardapioAtivo();
 	}
-	
+
 	public String redirecionarCadastro() {
 		limparCampos();
 		return FacesUtil.facesRedirectUrl(Tela.PEDIDO_CADASTRO);
@@ -128,5 +124,32 @@ public class PedidoBean {
 
 	public void setCardapio(Cardapio cardapio) {
 		this.cardapio = cardapio;
+	}
+
+
+	public TreeNode getProdutosNode() {
+		if (produtosNode == null) {
+			Cardapio cardapio = cardapioService.getCardapioAtivo();
+			List<Categoria> categorias = pedidoService.listarCategorias(cardapio);
+			
+			produtosNode = new DefaultTreeNode(null, null);
+			for (Categoria categoria : categorias) {
+				TreeNode pai = new DefaultTreeNode(categoria, produtosNode);
+				
+				List<ProdutoCardapio> produtos = pedidoService.listarProdutosCardapio(categoria, cardapio.getProdutos());
+				
+				for (ProdutoCardapio produtoCardapio : produtos) {
+					TreeNode filho = new DefaultTreeNode(produtoCardapio, pai);
+				}
+			}
+
+		}
+
+		return produtosNode;
+	}
+	
+
+	public void setProdutosNode(TreeNode produtosNode) {
+		this.produtosNode = produtosNode;
 	}
 }

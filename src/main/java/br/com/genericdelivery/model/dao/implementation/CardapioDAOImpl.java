@@ -28,5 +28,5 @@ public class CardapioDAOImpl extends JPAGenericDAO<Cardapio> implements Cardapio
 		}
 		return (List<Cardapio>) findByJPQL(sb.toString());
 	}
-
+	
 }

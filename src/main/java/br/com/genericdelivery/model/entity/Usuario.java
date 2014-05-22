@@ -40,9 +40,6 @@ public class Usuario implements Serializable {
 	@Column(name = "ativo", nullable = false)
 	private Boolean ativo;
 
-	@Column(name = "facebook", nullable = true, length = 255, unique = true)
-	private String facebook;
-
 	@Column(name = "telefone", length = 20, nullable = true)
 	private String telefone;
 
@@ -96,14 +93,6 @@ public class Usuario implements Serializable {
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
-	}
-
-	public String getFacebook() {
-		return facebook;
-	}
-
-	public void setFacebook(String facebook) {
-		this.facebook = facebook;
 	}
 
 	public String getTelefone() {
@@ -161,8 +150,6 @@ public class Usuario implements Serializable {
 		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
 		result = prime * result
 				+ ((endereco == null) ? 0 : endereco.hashCode());
-		result = prime * result
-				+ ((facebook == null) ? 0 : facebook.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -192,11 +179,6 @@ public class Usuario implements Serializable {
 			if (other.endereco != null)
 				return false;
 		} else if (!endereco.equals(other.endereco))
-			return false;
-		if (facebook == null) {
-			if (other.facebook != null)
-				return false;
-		} else if (!facebook.equals(other.facebook))
 			return false;
 		if (id == null) {
 			if (other.id != null)
