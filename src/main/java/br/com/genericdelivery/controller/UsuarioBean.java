@@ -11,10 +11,7 @@ import br.com.genericdelivery.model.entity.Perfil;
 import br.com.genericdelivery.model.entity.Tela;
 import br.com.genericdelivery.model.entity.Usuario;
 import br.com.genericdelivery.service.exceptions.CEPInvalido;
-import br.com.genericdelivery.service.exceptions.CPFJaCadastrado;
 import br.com.genericdelivery.service.exceptions.CamposObrigatoriosNaoPrenchidos;
-import br.com.genericdelivery.service.exceptions.EmailJaCadastrado;
-import br.com.genericdelivery.service.exceptions.FacebookJaCadastrado;
 import br.com.genericdelivery.service.interfaces.UsuarioService;
 import br.com.genericdelivery.view.Messages;
 import br.com.genericdelivery.view.web.faces.util.FacesUtil;
@@ -79,14 +76,10 @@ public class UsuarioBean {
 					FacesUtil.showMessageError(Messages.M4);
 				}
 			}
-		} catch (CPFJaCadastrado e) {
-			FacesUtil.showMessageError(Messages.M3);
-		} catch (EmailJaCadastrado e) {
-			FacesUtil.showMessageError(Messages.M17);
-		} catch (FacebookJaCadastrado e) {
-			FacesUtil.showMessageError(Messages.M18);
 		} catch (CamposObrigatoriosNaoPrenchidos e) {
 			FacesUtil.showMessageError(Messages.M2);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
 	}
 

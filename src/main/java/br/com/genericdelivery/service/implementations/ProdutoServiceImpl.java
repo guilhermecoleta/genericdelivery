@@ -9,6 +9,7 @@ import br.com.genericdelivery.model.dao.interfaces.ProdutoDAO;
 import br.com.genericdelivery.model.entity.Categoria;
 import br.com.genericdelivery.model.entity.Produto;
 import br.com.genericdelivery.service.exceptions.CamposObrigatoriosNaoPrenchidos;
+import br.com.genericdelivery.service.exceptions.ProdutoJaCadastrado;
 import br.com.genericdelivery.service.interfaces.ProdutoService;
 import br.com.genericdelivery.util.RequiredFieldsValidator;
 
@@ -19,21 +20,23 @@ public class ProdutoServiceImpl implements ProdutoService {
 	private ProdutoDAO produtoDAO;
 
 	@Override
-	public void salvar(Produto produto) throws CamposObrigatoriosNaoPrenchidos {
+	public void salvar(Produto produto) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException, ProdutoJaCadastrado {
 		validarCampos(produto);
 		produtoDAO.save(produto);
 	}
 
-	private void validarCampos(Produto produto) throws CamposObrigatoriosNaoPrenchidos {
-		boolean validate = RequiredFieldsValidator.validate(produto);
-		validate &= RequiredFieldsValidator.validate(produto.getCategoria());
-		if (!validate) {
-			throw new CamposObrigatoriosNaoPrenchidos();
+	private void validarCampos(Produto produto) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException, ProdutoJaCadastrado {
+		RequiredFieldsValidator.validate(produto);
+		RequiredFieldsValidator.validate(produto.getCategoria());
+		
+		Produto prod = produtoDAO.findByDescricao(produto);
+		if (prod != null){
+			throw new ProdutoJaCadastrado();
 		}
 	}
 
 	@Override
-	public void alterar(Produto produto) throws CamposObrigatoriosNaoPrenchidos {
+	public void alterar(Produto produto) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException, ProdutoJaCadastrado {
 		validarCampos(produto);
 		produtoDAO.update(produto);
 	}

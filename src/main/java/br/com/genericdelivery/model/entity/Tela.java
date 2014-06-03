@@ -2,7 +2,8 @@ package br.com.genericdelivery.model.entity;
 
 public enum Tela {
 	LOGIN("/login"), MAIN("/pages/main"), USUARIO_LISTAGEM("/pages/usuario_listagem"), USUARIO_CADASTRO("/pages/usuario_cadastro"), PRODUTO_CADASTRO(
-			"/pages/produto_cadastro"), CARDAPIO_CADASTRO("/pages/cardapio_cadastro"), PEDIDO_CADASTRO("/pages/pedido_cadastro");
+			"/pages/produto_cadastro"), CARDAPIO_CADASTRO("/pages/cardapio_cadastro"), PEDIDO_CADASTRO("/pages/pedido_cadastro"), 
+			CATEGORIA_CADASTRO("/pages/categoria_cadastro");
 
 	private Tela(String url) {
 		this.url = url;

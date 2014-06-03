@@ -22,22 +22,20 @@ public class PedidoServiceImpl implements PedidoService {
 	private PedidoDAO pedidoDAO;
 
 	@Override
-	public void save(Pedido pedido) throws CamposObrigatoriosNaoPrenchidos {
+	public void save(Pedido pedido) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException {
 		validarCampos(pedido);
 		pedidoDAO.save(pedido);
 	}
 
 	@Override
-	public void alterar(Pedido pedido) throws CamposObrigatoriosNaoPrenchidos {
+	public void alterar(Pedido pedido) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException {
 		validarCampos(pedido);
 		pedidoDAO.update(pedido);
 	}
 
-	private void validarCampos(Pedido pedido) throws CamposObrigatoriosNaoPrenchidos {
-		boolean validate = RequiredFieldsValidator.validate(pedido);
-		if (!validate) {
-			throw new CamposObrigatoriosNaoPrenchidos();
-		}
+	private void validarCampos(Pedido pedido) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException {
+		RequiredFieldsValidator.validate(pedido);
+		RequiredFieldsValidator.validate(pedido.getUsuario());
 	}
 
 	@Override

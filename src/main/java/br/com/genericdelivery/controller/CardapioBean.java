@@ -40,11 +40,12 @@ public class CardapioBean {
 
 	public void salvar() {
 		try {
-			
 			cardapioService.salvar(cardapio);
 			FacesUtil.showMessageInfo(Messages.M5);
 		} catch (CamposObrigatoriosNaoPrenchidos e) {
 			FacesUtil.showMessageError(Messages.M2);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
 	}
 

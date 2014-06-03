@@ -5,7 +5,7 @@ import br.com.genericdelivery.service.exceptions.CamposObrigatoriosNaoPrenchidos
 
 public interface CardapioService {
 
-	void salvar(Cardapio cardapio) throws CamposObrigatoriosNaoPrenchidos;
+	void salvar(Cardapio cardapio) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException;
 
 	Cardapio getCardapioAtivo();
 

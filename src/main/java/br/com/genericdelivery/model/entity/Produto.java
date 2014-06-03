@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.genericdelivery.util.annotations.Required;
+
 @Entity
 @Table(schema="tcc", name = "produto")
 public class Produto implements Serializable {
@@ -22,18 +24,22 @@ public class Produto implements Serializable {
 	private static final long serialVersionUID = 4735792974136560710L;
 
 	@Id
+	@Required
 	@Column(name = "codigo", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Integer codigo;
 
 	@Column(name = "descricao", nullable = false, length = 50, unique = true)
+	@Required
 	private String descricao;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria", nullable = false)
+	@Required
 	private Categoria categoria;
 
 	@Column(name = "ativo")
+	@Required
 	private Boolean ativo;
 
 	// define o diretorio da imagem
@@ -80,5 +86,56 @@ public class Produto implements Serializable {
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
+		result = prime * result
+				+ ((categoria == null) ? 0 : categoria.hashCode());
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result
+				+ ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((imagem == null) ? 0 : imagem.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (ativo == null) {
+			if (other.ativo != null)
+				return false;
+		} else if (!ativo.equals(other.ativo))
+			return false;
+		if (categoria == null) {
+			if (other.categoria != null)
+				return false;
+		} else if (!categoria.equals(other.categoria))
+			return false;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		if (descricao == null) {
+			if (other.descricao != null)
+				return false;
+		} else if (!descricao.equals(other.descricao))
+			return false;
+		if (imagem == null) {
+			if (other.imagem != null)
+				return false;
+		} else if (!imagem.equals(other.imagem))
+			return false;
+		return true;
 	}
 }

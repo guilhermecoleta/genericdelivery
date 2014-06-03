@@ -6,6 +6,7 @@ import java.util.Arrays;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,29 +28,37 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = -3746862374430570964L;
 
 	@Id
+	@Required
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
 	@Column(name = "nome", length = 100, nullable = false)
+	@Required
 	private String nome;
 
 	@Column(name = "senha", nullable = false, length = 20)
+	@Required
 	private String senha;
 
 	@Column(name = "ativo", nullable = false)
+	@Required
 	private Boolean ativo;
 
 	@Column(name = "telefone", length = 20, nullable = true)
+	@Required
 	private String telefone;
 
 	@Column(name = "login", length = 15, nullable = false, unique = true)
+	@Required
 	private String login;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@Required
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "endereco", nullable = false)
 	private Endereco endereco;
 
+	@Required
 	@ManyToOne
 	@JoinColumn(name = "perfil", nullable = false)
 	private Perfil perfil;
@@ -58,7 +67,6 @@ public class Usuario implements Serializable {
 	private TipoLogradouro[] values;
 
 
-	@Required
 	public String getLogin() {
 		return login;
 	}
@@ -75,7 +83,6 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 
-	@Required
 	public String getSenha() {
 		return senha;
 	}
@@ -84,7 +91,6 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	@Required
 	public Boolean getAtivo() {
 		if (ativo == null)
 			ativo = true;
@@ -103,7 +109,6 @@ public class Usuario implements Serializable {
 		this.telefone = telefone;
 	}
 
-	@RequiredObject
 	public Endereco getEndereco() {
 		if (endereco == null) {
 			endereco = new Endereco();
@@ -116,7 +121,6 @@ public class Usuario implements Serializable {
 		this.endereco = endereco;
 	}
 
-	@RequiredObject
 	public Perfil getPerfil() {
 		if (perfil == null)
 			perfil = new Perfil();

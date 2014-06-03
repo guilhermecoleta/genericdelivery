@@ -12,7 +12,6 @@ import br.com.genericdelivery.model.entity.Categoria;
 import br.com.genericdelivery.model.entity.Pedido;
 import br.com.genericdelivery.model.entity.Produto;
 import br.com.genericdelivery.model.entity.ProdutoCardapio;
-import br.com.genericdelivery.model.entity.ProdutoPedido;
 import br.com.genericdelivery.model.entity.Tela;
 import br.com.genericdelivery.service.exceptions.CamposObrigatoriosNaoPrenchidos;
 import br.com.genericdelivery.service.interfaces.CardapioService;
@@ -57,6 +56,8 @@ public class PedidoBean {
 			}
 		} catch (CamposObrigatoriosNaoPrenchidos e) {
 			FacesUtil.showMessageError(Messages.M2);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
 
 	}

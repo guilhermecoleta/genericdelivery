@@ -1,5 +1,6 @@
 package br.com.genericdelivery.model.dao.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -30,5 +31,19 @@ public class ProdutoDAOImpl extends JPAGenericDAO<Produto> implements ProdutoDAO
 	@Override
 	public Produto findProdutoById(Integer id) {
 		return findById(id);
+	}
+	
+	@Override
+	public Produto findByDescricao(Produto produto){
+		List<Object> params = new ArrayList<Object>();
+		StringBuilder sb = new StringBuilder();
+		sb.append(" SELECT p FROM Produto p WHERE p.ativo = true");
+		sb.append(" AND p.descricao = ?");
+		params.add(produto.getDescricao());
+		if(produto.getCodigo() != null){
+			sb.append(" AND p.codigo != ?");
+			params.add(produto.getCodigo());
+		}
+		return (Produto) findSingleResultByJPQL(sb.toString(), params.toArray());
 	}
 }

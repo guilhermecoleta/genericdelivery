@@ -10,12 +10,11 @@ import br.com.genericdelivery.service.exceptions.CamposObrigatoriosNaoPrenchidos
 
 public interface PedidoService {
 
-	void save(Pedido pedido) throws CamposObrigatoriosNaoPrenchidos;
+	void save(Pedido pedido) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException;
 
-	void alterar(Pedido pedido) throws CamposObrigatoriosNaoPrenchidos;
+	void alterar(Pedido pedido) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException;
 
 	List<Categoria> listarCategorias(Cardapio cardapio);
-
 
 	List<ProdutoCardapio> listarProdutosCardapio(Categoria categoria,
 			List<ProdutoCardapio> produtos);

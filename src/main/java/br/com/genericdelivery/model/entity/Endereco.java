@@ -24,24 +24,29 @@ public class Endereco implements Serializable {
 	private static final long serialVersionUID = -1922525322024118234L;
 
 	@Id
+	@Required
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
 	@Column(name = "tipo_logradouro", nullable = false, length = 50)
 	@Enumerated(EnumType.STRING)
+	@Required
 	private TipoLogradouro tipoLogradouro;
 
 	@Column(name = "logradouro", nullable = false, length = 50)
+	@Required
 	private String logradouro;
 
 	@Column(name = "numero")
 	private Integer numero;
 
 	@Column(name = "cep", nullable = false, length = 10)
+	@Required
 	private String cep;
 
 	@Column(name = "bairro", length = 30, nullable = false)
+	@Required
 	private String bairro;
 
 	@Column(name = "complemento", nullable = true, length = 50)
@@ -51,9 +56,11 @@ public class Endereco implements Serializable {
 	private String pontoReferencia;
 
 	@Column(name = "cidade", length = 30, nullable = false)
+	@Required
 	private String cidade;
 
 	@Column(name = "uf", length = 30, nullable = false)
+	@Required
 	private String uf;
 
 	@Transient
@@ -70,7 +77,6 @@ public class Endereco implements Serializable {
 		this.id = id;
 	}
 
-	@Required
 	public String getLogradouro() {
 		return logradouro;
 	}
@@ -87,7 +93,6 @@ public class Endereco implements Serializable {
 		this.numero = numero;
 	}
 
-	@Required
 	public String getCep() {
 		return cep;
 	}
@@ -96,7 +101,6 @@ public class Endereco implements Serializable {
 		this.cep = cep;
 	}
 
-	@Required
 	public String getBairro() {
 		return bairro;
 	}
@@ -121,7 +125,6 @@ public class Endereco implements Serializable {
 		this.pontoReferencia = pontoReferencia;
 	}
 
-	@Required
 	public String getCidade() {
 		return cidade;
 	}
@@ -130,7 +133,6 @@ public class Endereco implements Serializable {
 		this.cidade = cidade;
 	}
 
-	@Required
 	public String getUf() {
 		return uf;
 	}
@@ -139,7 +141,6 @@ public class Endereco implements Serializable {
 		this.uf = uf;
 	}
 
-	@Required
 	public TipoLogradouro getTipoLogradouro() {
 		return tipoLogradouro;
 	}
@@ -170,12 +171,20 @@ public class Endereco implements Serializable {
 		result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
 		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
 		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
-		result = prime * result + ((complemento == null) ? 0 : complemento.hashCode());
+		result = prime * result
+				+ ((complemento == null) ? 0 : complemento.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((logradouro == null) ? 0 : logradouro.hashCode());
+		result = prime * result
+				+ ((logradouro == null) ? 0 : logradouro.hashCode());
 		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
-		result = prime * result + ((pontoReferencia == null) ? 0 : pontoReferencia.hashCode());
-		result = prime * result + ((tipoLogradouro == null) ? 0 : tipoLogradouro.hashCode());
+		result = prime * result
+				+ ((numeroString == null) ? 0 : numeroString.hashCode());
+		result = prime * result
+				+ ((pontoReferencia == null) ? 0 : pontoReferencia.hashCode());
+		result = prime * result
+				+ ((resultadoCEP == null) ? 0 : resultadoCEP.hashCode());
+		result = prime * result
+				+ ((tipoLogradouro == null) ? 0 : tipoLogradouro.hashCode());
 		result = prime * result + ((uf == null) ? 0 : uf.hashCode());
 		return result;
 	}
@@ -224,10 +233,20 @@ public class Endereco implements Serializable {
 				return false;
 		} else if (!numero.equals(other.numero))
 			return false;
+		if (numeroString == null) {
+			if (other.numeroString != null)
+				return false;
+		} else if (!numeroString.equals(other.numeroString))
+			return false;
 		if (pontoReferencia == null) {
 			if (other.pontoReferencia != null)
 				return false;
 		} else if (!pontoReferencia.equals(other.pontoReferencia))
+			return false;
+		if (resultadoCEP == null) {
+			if (other.resultadoCEP != null)
+				return false;
+		} else if (!resultadoCEP.equals(other.resultadoCEP))
 			return false;
 		if (tipoLogradouro != other.tipoLogradouro)
 			return false;

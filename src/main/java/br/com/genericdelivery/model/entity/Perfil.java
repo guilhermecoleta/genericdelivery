@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.genericdelivery.util.annotations.Required;
+
 @Entity
 @Table(name = "perfil")
 public class Perfil implements Serializable {
@@ -27,6 +29,7 @@ public class Perfil implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
+	@Required
 	private Integer id;
 
 	@Column(name = "nome", nullable = false, length = 30)

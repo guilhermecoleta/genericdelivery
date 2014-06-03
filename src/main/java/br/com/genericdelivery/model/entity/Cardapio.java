@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.genericdelivery.util.annotations.Required;
+
 @Entity
 @Table(schema = "tcc", name = "cardapio")
 public class Cardapio implements Serializable {
@@ -29,18 +31,22 @@ public class Cardapio implements Serializable {
 	private static final long serialVersionUID = 2011581397801625004L;
 
 	@Id
+	@Required
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id", nullable = false)
 	private Integer id;
 
 	@Column(nullable = true, name = "descricao", length = 50)
+	@Required
 	private String descricao;
 
 	@Column(name = "data_hora", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
+	@Required
 	private Date dataHora;
 
 	@Column(name = "ativo", nullable = false)
+	@Required
 	private Boolean ativo;
 
 	@OneToMany(mappedBy = "cardapio", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -48,6 +54,7 @@ public class Cardapio implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuario", nullable = false)
+	@Required
 	private Usuario usuario;
 
 	public Integer getId() {

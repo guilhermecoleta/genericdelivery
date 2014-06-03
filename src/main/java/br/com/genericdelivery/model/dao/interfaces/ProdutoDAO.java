@@ -15,4 +15,6 @@ public interface ProdutoDAO {
 	List<Produto> listarProdutos();
 
 	Produto findProdutoById(Integer id);
+
+	Produto findByDescricao(Produto produto);
 }

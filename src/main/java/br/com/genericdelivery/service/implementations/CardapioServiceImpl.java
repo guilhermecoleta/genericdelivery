@@ -18,7 +18,7 @@ public class CardapioServiceImpl implements CardapioService {
 	private CardapioDAO cardapioDAO;
 
 	@Override
-	public void salvar(Cardapio cardapio) throws CamposObrigatoriosNaoPrenchidos {
+	public void salvar(Cardapio cardapio) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException {
 		validate(cardapio);
 		desativarCardapios(cardapio);
 		cardapioDAO.save(cardapio);
@@ -29,11 +29,14 @@ public class CardapioServiceImpl implements CardapioService {
 		cardapioDAO.update(cardapio);
 	}
 
-	private void validate(Cardapio cardapio) throws CamposObrigatoriosNaoPrenchidos {
-		boolean validate = RequiredFieldsValidator.validate(cardapio);
-		if (!validate) {
+	private void validate(Cardapio cardapio) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException {
+		RequiredFieldsValidator.validate(cardapio);
+		RequiredFieldsValidator.validate(cardapio.getUsuario());
+		
+		if(cardapio.getProdutos() == null || cardapio.getProdutos().isEmpty()){
 			throw new CamposObrigatoriosNaoPrenchidos();
 		}
+		
 	}
 	
 	@Override

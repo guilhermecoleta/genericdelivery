@@ -14,10 +14,7 @@ import br.com.genericdelivery.model.entity.Permissao;
 import br.com.genericdelivery.model.entity.TipoLogradouro;
 import br.com.genericdelivery.model.entity.Usuario;
 import br.com.genericdelivery.service.exceptions.CEPInvalido;
-import br.com.genericdelivery.service.exceptions.CPFJaCadastrado;
 import br.com.genericdelivery.service.exceptions.CamposObrigatoriosNaoPrenchidos;
-import br.com.genericdelivery.service.exceptions.EmailJaCadastrado;
-import br.com.genericdelivery.service.exceptions.FacebookJaCadastrado;
 import br.com.genericdelivery.service.interfaces.UsuarioService;
 import br.com.genericdelivery.util.RequiredFieldsValidator;
 import br.com.genericdelivery.view.web.faces.util.EnderecoByCEPUtil;
@@ -102,23 +99,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public void alterar(Usuario usuario) throws CPFJaCadastrado, EmailJaCadastrado, FacebookJaCadastrado, CamposObrigatoriosNaoPrenchidos {
+	public void alterar(Usuario usuario) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException {
 		validarCampos(usuario);
 		dao.update(usuario);
 	}
 
 	@Override
-	public void salvar(Usuario usuario) throws CamposObrigatoriosNaoPrenchidos, CPFJaCadastrado, EmailJaCadastrado, FacebookJaCadastrado {
+	public void salvar(Usuario usuario) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException {
 		validarCampos(usuario);
 		dao.save(usuario);
 	}
 
-	private void validarCampos(Usuario usuario) throws CPFJaCadastrado, EmailJaCadastrado, FacebookJaCadastrado, CamposObrigatoriosNaoPrenchidos {
-		boolean validate = RequiredFieldsValidator.validate(usuario);
-		validate &= RequiredFieldsValidator.validate(usuario.getEndereco());
-		if (!validate) {
-			throw new CamposObrigatoriosNaoPrenchidos();
-		}
+	private void validarCampos(Usuario usuario) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException {
+		RequiredFieldsValidator.validate(usuario);
+		RequiredFieldsValidator.validate(usuario.getEndereco());
+		RequiredFieldsValidator.validate(usuario.getPerfil());
 	}
 
 

@@ -7,10 +7,7 @@ import br.com.genericdelivery.model.entity.Funcionalidade;
 import br.com.genericdelivery.model.entity.Permissao;
 import br.com.genericdelivery.model.entity.Usuario;
 import br.com.genericdelivery.service.exceptions.CEPInvalido;
-import br.com.genericdelivery.service.exceptions.CPFJaCadastrado;
 import br.com.genericdelivery.service.exceptions.CamposObrigatoriosNaoPrenchidos;
-import br.com.genericdelivery.service.exceptions.EmailJaCadastrado;
-import br.com.genericdelivery.service.exceptions.FacebookJaCadastrado;
 import br.com.genericdelivery.vo.UsuarioFiltroVO;
 
 public interface UsuarioService {
@@ -21,9 +18,9 @@ public interface UsuarioService {
 
 	Endereco findEndereco(Endereco endereco) throws CEPInvalido, CamposObrigatoriosNaoPrenchidos;
 
-	void salvar(Usuario usuario) throws CamposObrigatoriosNaoPrenchidos, CPFJaCadastrado, EmailJaCadastrado, FacebookJaCadastrado;
+	void salvar(Usuario usuario) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException ;
 
-	void alterar(Usuario usuario) throws CPFJaCadastrado, EmailJaCadastrado, FacebookJaCadastrado, CamposObrigatoriosNaoPrenchidos;
+	void alterar(Usuario usuario) throws CamposObrigatoriosNaoPrenchidos, IllegalAccessException ;
 
 	List<Usuario> list(UsuarioFiltroVO filtroVO);
 

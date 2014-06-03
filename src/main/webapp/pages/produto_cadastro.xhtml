@@ -16,6 +16,12 @@
 
 				<div class="clear" />
 
+				<p:fileUpload
+					fileUploadListener="#{fileUploadView.handleFileUpload}"
+					mode="advanced" dragDropSupport="false" update="messages"
+					sizeLimit="100000" fileLimit="1"
+					allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
 				<div class="grid_10">
 					<p:outputLabel for="codigo" value="Código: *" />
 					<p:inputText styleClass="size_10 inputText" id="codigo"
@@ -47,13 +53,13 @@
 			</p:fieldset>
 
 
-				<div class="grid_8" />
-				<div class="grid_4" style="position: right">
-					<p:commandButton action="#{produtoBean.salvar}" value="Salvar"
-						update="form" ajax="false" />
-					<p:commandButton action="#{produtoBean.voltar}" value="Voltar"
-						update="form" ajax="false" />
-				</div>
+			<div class="grid_8" />
+			<div class="grid_4" style="position: right">
+				<p:commandButton action="#{produtoBean.salvar}" value="Salvar"
+					update="form" ajax="false" />
+				<p:commandButton action="#{produtoBean.voltar}" value="Voltar"
+					update="form" ajax="false" />
+			</div>
 
 		</h:form>
 	</ui:define>
